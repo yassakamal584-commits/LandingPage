@@ -1,7 +1,59 @@
-import React from 'react'
+import { useState } from "react"
+
+const links = [
+  {name: "Home", href :"#home"},
+  {name: "Ai types", href :"#types"},
+  {name: "Benefits", href :"#benefits"},
+  {name: "Contact", href :"#contact"},
+]
+
+
 
 export default function NavBar() {
+
+  const [mobileMenuOpen,setMobileMenuOpen]= useState(false)
   return (
-    <div>NavBar</div>
+    <nav className='bg-white/80 backdrop-blur-md shadow-sm fixed w-full z-50'>
+      <div className='app-container flex justify-between items-center h-16'>
+        {/* logo */}
+        <span className="gradient-text text-2xl font-bold">Ai Revolution</span>
+
+        
+        {/* dektop  links */}
+        <div className='hidden md:flex items-center space-x-8'>
+          {links.map((link)=>
+          <a className='nav-item' key={link.name} href={link.href}>{link.name} </a>
+          )}
+          <a className='nav-btn' href="">Get Started</a>
+
+        </div>
+        {/* mobile menu button */}
+
+        <button  
+        onClick={()=>setMobileMenuOpen((prev) =>!prev)}
+        classNam  e='md:hidden p-2 w-full rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 foucs:outline-none'> 
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+</svg>
+
+          {/* Mobile menu */}
+
+          {mobileMenuOpen&& (
+            <div className="md:hidden bg-white shadow-lg rounded-b-lg px-2 pt-22 pb-3 space-y-1"> 
+             {links.map((link)=>
+          <a className='mobile-nav-item' key={link.name} href={link.href}>{link.name} </a>
+          )}
+          <a className='mobile-nav-btn' href="">Get Started</a>
+
+            </div>
+          )}
+
+
+        </button>
+      </div>
+
+      </nav>
+  
+  
   )
 }
